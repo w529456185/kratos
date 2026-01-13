@@ -247,6 +247,10 @@ func (s *Strategy) populateChooseMethodFlow(r *http.Request, f flow.Flow) error 
 				WithMetaLabel(text.NewInfoNodeInputEmail()),
 		)
 		f.GetUI().Nodes.Append(
+			node.NewInputField("phone", nil, node.CodeGroup, node.InputAttributeTypeTel).
+				WithMetaLabel(text.NewInfoNodeInputPhoneNumber()),
+		)
+		f.GetUI().Nodes.Append(
 			node.NewInputField("method", s.ID(), node.CodeGroup, node.InputAttributeTypeSubmit).
 				WithMetaLabel(text.NewInfoNodeLabelContinue()),
 		)

@@ -17,6 +17,9 @@
       "type": "string",
       "format": "email"
     },
+    "phone": {
+      "type": "string"
+    },
     "flow": {
       "type": "string",
       "format": "uuid"

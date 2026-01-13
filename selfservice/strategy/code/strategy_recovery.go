@@ -55,6 +55,10 @@ func (s *Strategy) PopulateRecoveryMethod(r *http.Request, f *recovery.Flow) err
 			node.NewInputField("email", nil, node.CodeGroup, node.InputAttributeTypeEmail, node.WithRequiredInputAttribute).
 				WithMetaLabel(text.NewInfoNodeInputEmail()),
 		)
+		f.UI.GetNodes().Append(
+			node.NewInputField("phone", nil, node.CodeGroup, node.InputAttributeTypeTel).
+				WithMetaLabel(text.NewInfoNodeInputPhoneNumber()),
+		)
 	case flow.StateRecoveryAwaitingAddress:
 		// re-initialize the UI with a "clean" new state
 		f.UI = &container.Container{
@@ -98,6 +102,11 @@ type updateRecoveryFlowWithCodeMethod struct {
 	// format: email
 	// required: false
 	Email string `json:"email" form:"email"`
+
+	// Phone is the phone number to recover
+	//
+	// required: false
+	Phone string `json:"phone" form:"phone"`
 
 	// Code from the recovery email
 	//
@@ -189,8 +198,8 @@ func (s *Strategy) Recover(w http.ResponseWriter, r *http.Request, f *recovery.F
 	// instead of inspecting the state explicitly.
 	// For Recovery v2 we inspect the state explicitly, a few lines below.
 	if !flow.IsStateRecoveryV2(f.State) {
-		// If the email is not present in the submission body, the user needs a new code via resend
-		if f.State != flow.StateChooseMethod && len(body.Email) == 0 {
+		// If the email/phone is not present in the submission body, the user needs a new code via resend
+		if f.State != flow.StateChooseMethod && len(body.Email) == 0 && len(body.Phone) == 0 {
 			if err := flow.MethodEnabledAndAllowed(ctx, flow.RecoveryFlow, sID, sID, s.deps); err != nil {
 				return s.HandleRecoveryError(w, r, nil, body, err)
 			}
@@ -749,8 +758,8 @@ func (s *Strategy) recoveryV2HandleGoBack(r *http.Request, f *recovery.Flow, bod
 
 // recoveryHandleFormSubmission handles the submission of an address for recovery
 func (s *Strategy) recoveryHandleFormSubmission(w http.ResponseWriter, r *http.Request, f *recovery.Flow, body *recoverySubmitPayload) error {
-	if len(body.Email) == 0 {
-		return s.HandleRecoveryError(w, r, f, body, schema.NewRequiredError("#/email", "email"))
+	if len(body.Email) == 0 && len(body.Phone) == 0 {
+		return s.HandleRecoveryError(w, r, f, body, schema.NewRequiredError("#/email", "email or phone"))
 	}
 
 	ctx := r.Context()
@@ -765,7 +774,15 @@ func (s *Strategy) recoveryHandleFormSubmission(w http.ResponseWriter, r *http.R
 	}
 
 	f.TransientPayload = body.TransientPayload
-	if err := s.deps.CodeSender().SendRecoveryCode(ctx, f, identity.AddressTypeEmail, body.Email, r.Header); err != nil {
+
+	via := identity.AddressTypeEmail
+	to := body.Email
+	if body.Phone != "" {
+		via = identity.AddressTypeSMS
+		to = body.Phone
+	}
+
+	if err := s.deps.CodeSender().SendRecoveryCode(ctx, f, via, to, r.Header); err != nil {
 		if !errors.Is(err, ErrUnknownAddress) {
 			return s.HandleRecoveryError(w, r, f, body, err)
 		}
@@ -797,9 +814,15 @@ func (s *Strategy) recoveryHandleFormSubmission(w http.ResponseWriter, r *http.R
 		Append(node.NewInputField("method", s.RecoveryStrategyID(), node.CodeGroup, node.InputAttributeTypeSubmit).
 			WithMetaLabel(text.NewInfoNodeLabelContinue()))
 
-	f.UI.Nodes.Append(node.NewInputField("email", body.Email, node.CodeGroup, node.InputAttributeTypeSubmit).
-		WithMetaLabel(text.NewInfoNodeResendOTP()),
-	)
+	if body.Email != "" {
+		f.UI.Nodes.Append(node.NewInputField("email", body.Email, node.CodeGroup, node.InputAttributeTypeSubmit).
+			WithMetaLabel(text.NewInfoNodeResendOTP()),
+		)
+	} else if body.Phone != "" {
+		f.UI.Nodes.Append(node.NewInputField("phone", body.Phone, node.CodeGroup, node.InputAttributeTypeSubmit).
+			WithMetaLabel(text.NewInfoNodeResendOTP()),
+		)
+	}
 	if err := s.deps.RecoveryFlowPersister().UpdateRecoveryFlow(r.Context(), f); err != nil {
 		return s.HandleRecoveryError(w, r, f, body, err)
 	}
@@ -849,6 +872,7 @@ type recoverySubmitPayload struct {
 	CSRFToken        string          `json:"csrf_token" form:"csrf_token"`
 	Flow             string          `json:"flow" form:"flow"`
 	Email            string          `json:"email" form:"email"`
+	Phone            string          `json:"phone" form:"phone"`
 	TransientPayload json.RawMessage `json:"transient_payload,omitempty" form:"transient_payload"`
 
 	// Used in RecoveryV2.

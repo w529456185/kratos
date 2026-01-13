@@ -1,0 +1,118 @@
+{
+    "$id": "https://schemas.ory.sh/presets/kratos/email-sms-password/identity.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Person",
+    "type": "object",
+    "properties": {
+        "traits": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "format": "email",
+                    "title": "E-Mail",
+                    "pattern": "^[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9.\\-]+$",
+                    "minLength": 3,
+                    "ory.sh/kratos": {
+                        "credentials": {
+                            "password": {
+                                "identifier": true
+                            },
+                            "code": {
+                                "identifier": true,
+                                "via": "email"
+                            },
+                            "passkey": {
+                                "display_name": true
+                            }
+                        },
+                        "verification": {
+                            "via": "email"
+                        },
+                        "recovery": {
+                            "via": "email"
+                        }
+                    }
+                },
+                "mobile": {
+                    "type": "string",
+                    "title": "Mobile",
+                    "format": "tel",
+                    "pattern": "^(?:(?:\\+|00)(?:[1-9]\\d{0,2})[-.\\s]?)?[1-9]\\d{1,14}$",
+                    "minLength": 3,
+                    "ory.sh/kratos": {
+                        "credentials": {
+                            "password": {
+                                "identifier": true
+                            },
+                            "code": {
+                                "identifier": true,
+                                "via": "sms"
+                            }
+                        },
+                        "verification": {
+                            "via": "sms"
+                        },
+                        "recovery": {
+                            "via": "sms"
+                        }
+                    }
+                },
+                "username": {
+                    "title": "Username",
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9_]{6,40}$",
+                    "minLength": 6,
+                    "ory.sh/kratos": {
+                        "credentials": {
+                            "password": {
+                                "identifier": true
+                            }
+                        }
+                    }
+                },
+                "tos": {
+                    "title": "Accept Tos",
+                    "type": "boolean"
+                },
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "nickname": {
+                    "title": "Nickname",
+                    "type": "string"
+                },
+                "avatar": {
+                    "title": "Avatar",
+                    "type": "string",
+                    "pattern": "^(data:image/svg\\+xml;base64,[a-zA-Z0-9+/]+={0,2}|https://.*)$",
+                    "maxLength": 2048
+                },
+                "consent": {
+                    "title": "Consent",
+                    "const": true
+                }
+            },
+
+            "anyOf": [
+                {
+                    "required": [
+                        "email"
+                    ]
+                },
+                {
+                    "required": [
+                        "mobile"
+                    ]
+                },
+                {
+                    "required": [
+                        "username"
+                    ]
+                }
+            ],
+            "additionalProperties": false
+        }
+    }
+}

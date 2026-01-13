@@ -64,11 +64,16 @@ func (s *Strategy) handleVerificationError(r *http.Request, f *verification.Flow
 	if f != nil {
 		f.UI.SetCSRF(s.deps.GenerateCSRFToken(r))
 		email := ""
+		phone := ""
 		if body != nil {
 			email = body.Email
+			phone = body.Phone
 		}
 		f.UI.GetNodes().Upsert(
-			node.NewInputField("email", email, node.CodeGroup, node.InputAttributeTypeEmail, node.WithRequiredInputAttribute).WithMetaLabel(text.NewInfoNodeInputEmail()),
+			node.NewInputField("email", email, node.CodeGroup, node.InputAttributeTypeEmail).WithMetaLabel(text.NewInfoNodeInputEmail()),
+		)
+		f.UI.GetNodes().Upsert(
+			node.NewInputField("phone", phone, node.CodeGroup, node.InputAttributeTypeTel).WithMetaLabel(text.NewInfoNodeInputPhoneNumber()),
 		)
 	}
 
@@ -89,6 +94,11 @@ type updateVerificationFlowWithCodeMethod struct {
 	// format: email
 	// required: false
 	Email string `form:"email" json:"email"`
+
+	// Phone is the phone number to verify
+	//
+	// required: false
+	Phone string `form:"phone" json:"phone"`
 
 	// Sending the anti-csrf token is only required for browser login flows.
 	CSRFToken string `form:"csrf_token" json:"csrf_token"`
@@ -191,11 +201,9 @@ func (s *Strategy) verificationHandleFormSubmission(ctx context.Context, w http.
 			return s.handleLinkClick(ctx, w, r, f, body.Code)
 		}
 
-		// If not GET: try to use the submitted code
 		return s.verificationUseCode(ctx, w, r, body.Code, f)
-	} else if len(body.Email) == 0 {
-		// If no code and no email was provided, fail with a validation error
-		return s.handleVerificationError(r, f, body, schema.NewRequiredError("#/email", "email"))
+	} else if len(body.Email) == 0 && len(body.Phone) == 0 {
+		return s.handleVerificationError(r, f, body, schema.NewRequiredError("#/email", "email or phone"))
 	}
 
 	if err := flow.EnsureCSRF(s.deps, r, f.Type, s.deps.Config().DisableAPIFlowEnforcement(ctx), s.deps.GenerateCSRFToken, body.CSRFToken); err != nil {
@@ -206,7 +214,14 @@ func (s *Strategy) verificationHandleFormSubmission(ctx context.Context, w http.
 		return s.handleVerificationError(r, f, body, err)
 	}
 
-	if err := s.deps.CodeSender().SendVerificationCode(ctx, f, identity.AddressTypeEmail, body.Email); err != nil {
+	via := identity.ChannelTypeEmail
+	to := body.Email
+	if body.Phone != "" {
+		via = identity.ChannelTypeSMS
+		to = body.Phone
+	}
+
+	if err := s.deps.CodeSender().SendVerificationCode(ctx, f, via, to); err != nil {
 		if !errors.Is(err, ErrUnknownAddress) {
 			return s.handleVerificationError(r, f, body, err)
 		}
@@ -222,6 +237,11 @@ func (s *Strategy) verificationHandleFormSubmission(ctx context.Context, w http.
 	if body.Email != "" {
 		f.UI.Nodes.Append(
 			node.NewInputField("email", body.Email, node.CodeGroup, node.InputAttributeTypeSubmit).
+				WithMetaLabel(text.NewInfoNodeResendOTP()),
+		)
+	} else if body.Phone != "" {
+		f.UI.Nodes.Append(
+			node.NewInputField("phone", body.Phone, node.CodeGroup, node.InputAttributeTypeSubmit).
 				WithMetaLabel(text.NewInfoNodeResendOTP()),
 		)
 	}
