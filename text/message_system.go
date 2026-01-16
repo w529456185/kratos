@@ -17,7 +17,7 @@ func NewErrorSystemGeneric(reason string) *Message {
 func NewCaptchaContainerMessage() *Message {
 	return &Message{
 		ID:   InfoNodeLabelCaptcha,
-		Text: "Please complete the captcha challenge to continue.",
+		Text: "请完成验证码挑战以继续。",
 		Type: Info,
 	}
 }

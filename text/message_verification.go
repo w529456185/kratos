@@ -11,7 +11,7 @@ import (
 func NewErrorValidationVerificationFlowExpired(expiredAt time.Time) *Message {
 	return &Message{
 		ID:   ErrorValidationVerificationFlowExpired,
-		Text: fmt.Sprintf("The verification flow expired %.2f minutes ago, please try again.", Since(expiredAt).Minutes()),
+		Text: fmt.Sprintf("验证流程已于 %.2f 分钟前过期，请重试。", Since(expiredAt).Minutes()),
 		Type: Error,
 		Context: context(map[string]any{
 			"expired_at":      expiredAt,
@@ -24,7 +24,7 @@ func NewInfoSelfServiceVerificationSuccessful() *Message {
 	return &Message{
 		ID:   InfoSelfServiceVerificationSuccessful,
 		Type: Success,
-		Text: "You successfully verified your email address.",
+		Text: "您已成功验证邮箱地址。",
 	}
 }
 
@@ -32,14 +32,14 @@ func NewVerificationEmailSent() *Message {
 	return &Message{
 		ID:   InfoSelfServiceVerificationEmailSent,
 		Type: Info,
-		Text: "An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
+		Text: "验证链接已发送至您提供的邮箱。如果未收到，请检查地址拼写并确保使用注册邮箱。",
 	}
 }
 
 func NewErrorValidationVerificationTokenInvalidOrAlreadyUsed() *Message {
 	return &Message{
 		ID:   ErrorValidationVerificationTokenInvalidOrAlreadyUsed,
-		Text: "The verification token is invalid or has already been used. Please retry the flow.",
+		Text: "验证令牌无效或已被使用，请重试流程。",
 		Type: Error,
 	}
 }
@@ -47,7 +47,7 @@ func NewErrorValidationVerificationTokenInvalidOrAlreadyUsed() *Message {
 func NewErrorValidationVerificationRetrySuccess() *Message {
 	return &Message{
 		ID:   ErrorValidationVerificationRetrySuccess,
-		Text: "The request was already completed successfully and can not be retried.",
+		Text: "请求已完成，无法重试。",
 		Type: Error,
 	}
 }
@@ -55,7 +55,7 @@ func NewErrorValidationVerificationRetrySuccess() *Message {
 func NewErrorValidationVerificationStateFailure() *Message {
 	return &Message{
 		ID:   ErrorValidationVerificationStateFailure,
-		Text: "The verification flow reached a failure state and must be retried.",
+		Text: "验证流程已达到失败状态，必须重试。",
 		Type: Error,
 	}
 }
@@ -63,7 +63,7 @@ func NewErrorValidationVerificationStateFailure() *Message {
 func NewErrorValidationVerificationCodeInvalidOrAlreadyUsed() *Message {
 	return &Message{
 		ID:   ErrorValidationVerificationCodeInvalidOrAlreadyUsed,
-		Text: "The verification code is invalid or has already been used. Please try again.",
+		Text: "验证码无效或已被使用，请重试。",
 		Type: Error,
 	}
 }
@@ -72,6 +72,6 @@ func NewVerificationEmailWithCodeSent() *Message {
 	return &Message{
 		ID:   InfoSelfServiceVerificationEmailWithCodeSent,
 		Type: Info,
-		Text: "An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
+		Text: "验证码已发送至您提供的邮箱。如果未收到，请检查地址拼写并确保使用注册邮箱。",
 	}
 }

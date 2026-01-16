@@ -12,7 +12,7 @@ func NewInfoLoginReAuth() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginReAuth,
 		Type: Info,
-		Text: "Please confirm this action by verifying that it is you.",
+		Text: "请通过验证确认此操作。",
 	}
 }
 
@@ -20,7 +20,7 @@ func NewInfoLoginMFA() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginMFA,
 		Type: Info,
-		Text: "Please complete the second authentication challenge.",
+		Text: "请完成第二重身份验证。",
 	}
 }
 
@@ -28,7 +28,7 @@ func NewInfoLoginWebAuthnPasswordless() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginWebAuthnPasswordless,
 		Type: Info,
-		Text: "Prepare your WebAuthn device (e.g. security key, biometrics scanner, ...) and press continue.",
+		Text: "准备好您的 WebAuthn 设备（如安全密钥、生物识别扫描仪等），然后点击继续。",
 	}
 }
 
@@ -36,7 +36,7 @@ func NewInfoLoginTOTPLabel() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginTOTPLabel,
 		Type: Info,
-		Text: "Authentication code",
+		Text: "验证码",
 	}
 }
 
@@ -44,14 +44,14 @@ func NewInfoLoginLookupLabel() *Message {
 	return &Message{
 		ID:   InfoLoginLookupLabel,
 		Type: Info,
-		Text: "Backup recovery code",
+		Text: "备用恢复码",
 	}
 }
 
 func NewInfoLogin() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLogin,
-		Text: "Sign in",
+		Text: "登录",
 		Type: Info,
 	}
 }
@@ -61,9 +61,8 @@ func NewInfoLoginLinkMessage(dupIdentifier, provider, newLoginURL string, availa
 		ID:   InfoSelfServiceLoginLink,
 		Type: Info,
 		Text: fmt.Sprintf(
-			"You tried to sign in with %q, but that email is already used by another account. Sign in to your account with one of the options below to add your account %[1]q at %q as another way to sign in.",
+			"您尝试使用 %q 登录，但该邮箱已被其他账户使用。请使用以下选项登录您的账户，以将 %[1]q 添加为另一种登录方式。",
 			dupIdentifier,
-			provider,
 		),
 		Context: context(map[string]any{
 			"duplicateIdentifier":        dupIdentifier,
@@ -80,7 +79,7 @@ func NewInfoLoginLinkMessage(dupIdentifier, provider, newLoginURL string, availa
 func NewInfoLoginAndLink() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginAndLink,
-		Text: "Sign in and link",
+		Text: "登录并关联",
 		Type: Info,
 	}
 }
@@ -88,7 +87,7 @@ func NewInfoLoginAndLink() *Message {
 func NewInfoLoginTOTP() *Message {
 	return &Message{
 		ID:   InfoLoginTOTP,
-		Text: "Use Authenticator",
+		Text: "使用验证器",
 		Type: Info,
 	}
 }
@@ -96,7 +95,7 @@ func NewInfoLoginTOTP() *Message {
 func NewInfoLoginPassword() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginPassword,
-		Text: "Sign in with password",
+		Text: "使用密码登录",
 		Type: Info,
 	}
 }
@@ -104,7 +103,7 @@ func NewInfoLoginPassword() *Message {
 func NewInfoLoginLookup() *Message {
 	return &Message{
 		ID:   InfoLoginLookup,
-		Text: "Use backup recovery code",
+		Text: "使用备用恢复码",
 		Type: Info,
 	}
 }
@@ -112,7 +111,7 @@ func NewInfoLoginLookup() *Message {
 func NewInfoLoginVerify() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginVerify,
-		Text: "Verify",
+		Text: "验证",
 		Type: Info,
 	}
 }
@@ -120,7 +119,7 @@ func NewInfoLoginVerify() *Message {
 func NewInfoLoginWith(provider string, providerId string) *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginWith,
-		Text: fmt.Sprintf("Sign in with %s", provider),
+		Text: fmt.Sprintf("使用 %s 登录", provider),
 		Type: Info,
 		Context: context(map[string]any{
 			"provider":    provider,
@@ -132,7 +131,7 @@ func NewInfoLoginWith(provider string, providerId string) *Message {
 func NewInfoLoginWithAndLink(provider string) *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginWithAndLink,
-		Text: fmt.Sprintf("Confirm with %s", provider),
+		Text: fmt.Sprintf("使用 %s 确认", provider),
 		Type: Info,
 		Context: context(map[string]any{
 			"provider": provider,
@@ -143,7 +142,7 @@ func NewInfoLoginWithAndLink(provider string) *Message {
 func NewErrorValidationLoginFlowExpired(expiredAt time.Time) *Message {
 	return &Message{
 		ID:   ErrorValidationLoginFlowExpired,
-		Text: fmt.Sprintf("The login flow expired %.2f minutes ago, please try again.", Since(expiredAt).Minutes()),
+		Text: fmt.Sprintf("登录流程已于 %.2f 分钟前过期，请重试。", Since(expiredAt).Minutes()),
 		Type: Error,
 		Context: context(map[string]any{
 			"expired_at":      expiredAt,
@@ -155,7 +154,7 @@ func NewErrorValidationLoginFlowExpired(expiredAt time.Time) *Message {
 func NewErrorValidationLoginNoStrategyFound() *Message {
 	return &Message{
 		ID:   ErrorValidationLoginNoStrategyFound,
-		Text: "Could not find a strategy to log you in with. Did you fill out the form correctly?",
+		Text: "未找到登录策略。您是否填写了正确的表单？",
 		Type: Error,
 	}
 }
@@ -163,7 +162,7 @@ func NewErrorValidationLoginNoStrategyFound() *Message {
 func NewErrorValidationRegistrationNoStrategyFound() *Message {
 	return &Message{
 		ID:   ErrorValidationRegistrationNoStrategyFound,
-		Text: "Could not find a strategy to sign you up with. Did you fill out the form correctly?",
+		Text: "未找到注册策略。您是否填写了正确的表单？",
 		Type: Error,
 	}
 }
@@ -171,7 +170,7 @@ func NewErrorValidationRegistrationNoStrategyFound() *Message {
 func NewErrorValidationSettingsNoStrategyFound() *Message {
 	return &Message{
 		ID:   ErrorValidationSettingsNoStrategyFound,
-		Text: "Could not find a strategy to update your settings. Did you fill out the form correctly?",
+		Text: "未找到更新设置的策略。您是否填写了正确的表单？",
 		Type: Error,
 	}
 }
@@ -179,7 +178,7 @@ func NewErrorValidationSettingsNoStrategyFound() *Message {
 func NewErrorValidationRecoveryNoStrategyFound() *Message {
 	return &Message{
 		ID:   ErrorValidationRecoveryNoStrategyFound,
-		Text: "Could not find a strategy to recover your account with. Did you fill out the form correctly?",
+		Text: "未找到恢复账户的策略。您是否填写了正确的表单？",
 		Type: Error,
 	}
 }
@@ -187,7 +186,7 @@ func NewErrorValidationRecoveryNoStrategyFound() *Message {
 func NewErrorValidationVerificationNoStrategyFound() *Message {
 	return &Message{
 		ID:   ErrorValidationVerificationNoStrategyFound,
-		Text: "Could not find a strategy to verify your account with. Did you fill out the form correctly?",
+		Text: "未找到验证账户的策略。您是否填写了正确的表单？",
 		Type: Error,
 	}
 }
@@ -195,7 +194,7 @@ func NewErrorValidationVerificationNoStrategyFound() *Message {
 func NewInfoSelfServiceLoginWebAuthn() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginWebAuthn,
-		Text: "Sign in with hardware key",
+		Text: "使用硬件密钥登录",
 		Type: Info,
 	}
 }
@@ -203,7 +202,7 @@ func NewInfoSelfServiceLoginWebAuthn() *Message {
 func NewInfoSelfServiceLoginPasskey() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginPasskey,
-		Text: "Sign in with passkey",
+		Text: "使用 Passkey 登录",
 		Type: Info,
 	}
 }
@@ -211,7 +210,7 @@ func NewInfoSelfServiceLoginPasskey() *Message {
 func NewInfoSelfServiceContinueLoginWebAuthn() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginContinueWebAuthn,
-		Text: "Sign in with hardware key",
+		Text: "使用硬件密钥登录",
 		Type: Info,
 	}
 }
@@ -219,7 +218,7 @@ func NewInfoSelfServiceContinueLoginWebAuthn() *Message {
 func NewInfoSelfServiceLoginContinue() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginContinue,
-		Text: "Continue",
+		Text: "继续",
 		Type: Info,
 	}
 }
@@ -228,14 +227,14 @@ func NewLoginCodeSent() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginCodeSent,
 		Type: Info,
-		Text: "A code was sent to the address you provided. If you didn't receive it, please check the spelling of the address and try again.",
+		Text: "验证码已发送至您提供的地址。如果未收到，请检查地址拼写并重试登录。",
 	}
 }
 
 func NewErrorValidationLoginCodeInvalidOrAlreadyUsed() *Message {
 	return &Message{
 		ID:   ErrorValidationLoginCodeInvalidOrAlreadyUsed,
-		Text: "The login code is invalid or has already been used. Please try again.",
+		Text: "登录码无效或已被使用，请重试。",
 		Type: Error,
 	}
 }
@@ -244,7 +243,7 @@ func NewErrorValidationLoginRetrySuccessful() *Message {
 	return &Message{
 		ID:   ErrorValidationLoginRetrySuccess,
 		Type: Error,
-		Text: "The request was already completed successfully and can not be retried.",
+		Text: "请求已完成，无法重试。",
 	}
 }
 
@@ -252,14 +251,14 @@ func NewInfoSelfServiceLoginCode() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginCode,
 		Type: Info,
-		Text: "Send sign in code",
+		Text: "发送登录验证码",
 	}
 }
 
 func NewErrorValidationLoginLinkedCredentialsDoNotMatch() *Message {
 	return &Message{
 		ID:   ErrorValidationLoginLinkedCredentialsDoNotMatch,
-		Text: "Linked credentials do not match.",
+		Text: "关联的凭证不匹配。",
 		Type: Error,
 	}
 }
@@ -267,7 +266,7 @@ func NewErrorValidationLoginLinkedCredentialsDoNotMatch() *Message {
 func NewErrorValidationAddressUnknown() *Message {
 	return &Message{
 		ID:   ErrorValidationLoginAddressUnknown,
-		Text: "The address you entered does not match any known addresses in the current account.",
+		Text: "您输入的地址与当前账户中的任何已知地址不匹配。",
 		Type: Error,
 	}
 }
@@ -276,7 +275,7 @@ func NewInfoSelfServiceLoginCodeMFA() *Message {
 	return &Message{
 		ID:   InfoSelfServiceLoginCodeMFA,
 		Type: Info,
-		Text: "Request code to continue",
+		Text: "请求验证码以继续",
 	}
 }
 
@@ -284,7 +283,7 @@ func NewInfoSelfServiceLoginAAL2CodeAddress(channel string, to string) *Message 
 	return &Message{
 		ID:   InfoSelfServiceLoginAAL2CodeAddress,
 		Type: Info,
-		Text: fmt.Sprintf("Send code to %s", to),
+		Text: fmt.Sprintf("发送验证码至 %s", to),
 		Context: context(map[string]any{
 			"address": to,
 			"channel": channel,

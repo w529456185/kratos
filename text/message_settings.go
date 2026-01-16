@@ -12,7 +12,7 @@ import (
 func NewErrorValidationSettingsFlowExpired(expiredAt time.Time) *Message {
 	return &Message{
 		ID:   ErrorValidationSettingsFlowExpired,
-		Text: fmt.Sprintf("The settings flow expired %.2f minutes ago, please try again.", Since(expiredAt).Minutes()),
+		Text: fmt.Sprintf("设置流程已于 %.2f 分钟前过期，请重试。", Since(expiredAt).Minutes()),
 		Type: Error,
 		Context: context(map[string]any{
 			"expired_at":      expiredAt,
@@ -24,7 +24,7 @@ func NewErrorValidationSettingsFlowExpired(expiredAt time.Time) *Message {
 func NewInfoSelfServiceSettingsTOTPQRCode() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsTOTPQRCode,
-		Text: "Authenticator app QR code",
+		Text: "验证器应用二维码",
 		Type: Info,
 	}
 }
@@ -42,7 +42,7 @@ func NewInfoSelfServiceSettingsTOTPSecret(secret string) *Message {
 func NewInfoSelfServiceSettingsTOTPSecretLabel() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsTOTPSecretLabel,
-		Text: "This is your authenticator app secret. Use it if you can not scan the QR code.",
+		Text: "这是您的验证器应用密钥。如果无法扫描二维码，请使用此密钥。",
 		Type: Info,
 	}
 }
@@ -50,7 +50,7 @@ func NewInfoSelfServiceSettingsTOTPSecretLabel() *Message {
 func NewInfoSelfServiceSettingsUpdateSuccess() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsUpdateSuccess,
-		Text: "Your changes have been saved!",
+		Text: "您的更改已保存！",
 		Type: Success,
 	}
 }
@@ -58,7 +58,7 @@ func NewInfoSelfServiceSettingsUpdateSuccess() *Message {
 func NewInfoSelfServiceSettingsUpdateUnlinkTOTP() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsUpdateUnlinkTOTP,
-		Text: "Unlink TOTP Authenticator App",
+		Text: "取消关联 TOTP 验证器应用",
 		Type: Info,
 	}
 }
@@ -66,7 +66,7 @@ func NewInfoSelfServiceSettingsUpdateUnlinkTOTP() *Message {
 func NewInfoSelfServiceSettingsRevealLookup() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsRevealLookup,
-		Text: "Reveal backup recovery codes",
+		Text: "显示备用恢复码",
 		Type: Info,
 	}
 }
@@ -74,7 +74,7 @@ func NewInfoSelfServiceSettingsRevealLookup() *Message {
 func NewInfoSelfServiceSettingsRegenerateLookup() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsRegenerateLookup,
-		Text: "Generate new backup recovery codes",
+		Text: "生成新的备用恢复码",
 		Type: Info,
 	}
 }
@@ -82,7 +82,7 @@ func NewInfoSelfServiceSettingsRegenerateLookup() *Message {
 func NewInfoSelfServiceSettingsDisableLookup() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsDisableLookup,
-		Text: "Disable this method",
+		Text: "禁用此方法",
 		Type: Info,
 	}
 }
@@ -90,7 +90,7 @@ func NewInfoSelfServiceSettingsDisableLookup() *Message {
 func NewInfoSelfServiceSettingsLookupConfirm() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsLookupConfirm,
-		Text: "Confirm backup recovery codes",
+		Text: "确认备用恢复码",
 		Type: Info,
 	}
 }
@@ -119,7 +119,7 @@ func NewInfoSelfServiceSettingsLookupSecret(secret string) *Message {
 func NewInfoSelfServiceSettingsLookupSecretUsed(usedAt time.Time) *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsLookupSecretUsed,
-		Text: fmt.Sprintf("Secret was used at %s", usedAt),
+		Text: fmt.Sprintf("密钥已于 %s 使用", usedAt),
 		Type: Info,
 		Context: context(map[string]any{
 			"used_at":      usedAt,
@@ -131,7 +131,7 @@ func NewInfoSelfServiceSettingsLookupSecretUsed(usedAt time.Time) *Message {
 func NewInfoSelfServiceSettingsLookupSecretsLabel() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsLookupSecretLabel,
-		Text: "These are your back up recovery codes. Please keep them in a safe place!",
+		Text: "这是您的备用恢复码，请妥善保管！",
 		Type: Info,
 	}
 }
@@ -139,7 +139,7 @@ func NewInfoSelfServiceSettingsLookupSecretsLabel() *Message {
 func NewInfoSelfServiceSettingsUpdateLinkOIDC(provider string) *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsUpdateLinkOidc,
-		Text: fmt.Sprintf("Link %s", provider),
+		Text: fmt.Sprintf("关联 %s", provider),
 		Type: Info,
 		Context: context(map[string]any{
 			"provider": provider,
@@ -150,7 +150,7 @@ func NewInfoSelfServiceSettingsUpdateLinkOIDC(provider string) *Message {
 func NewInfoSelfServiceSettingsUpdateUnlinkOIDC(provider string) *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsUpdateUnlinkOidc,
-		Text: fmt.Sprintf("Unlink %s", provider),
+		Text: fmt.Sprintf("取消关联 %s", provider),
 		Type: Info,
 		Context: context(map[string]any{
 			"provider": provider,
@@ -161,7 +161,7 @@ func NewInfoSelfServiceSettingsUpdateUnlinkOIDC(provider string) *Message {
 func NewInfoSelfServiceSettingsRegisterWebAuthn() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsRegisterWebAuthn,
-		Text: "Add security key",
+		Text: "添加安全密钥",
 		Type: Info,
 	}
 }
@@ -169,7 +169,7 @@ func NewInfoSelfServiceSettingsRegisterWebAuthn() *Message {
 func NewInfoSelfServiceSettingsRegisterPasskey() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsRegisterPasskey,
-		Text: "Add passkey",
+		Text: "添加 Passkey",
 		Type: Info,
 	}
 }
@@ -177,7 +177,7 @@ func NewInfoSelfServiceSettingsRegisterPasskey() *Message {
 func NewInfoSelfServiceRegisterWebAuthnDisplayName() *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsRegisterWebAuthnDisplayName,
-		Text: "Name of the security key",
+		Text: "安全密钥名称",
 		Type: Info,
 	}
 }
@@ -185,7 +185,7 @@ func NewInfoSelfServiceRegisterWebAuthnDisplayName() *Message {
 func NewInfoSelfServiceRemoveWebAuthn(name string, createdAt time.Time) *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsRemoveWebAuthn,
-		Text: fmt.Sprintf("Remove security key \"%s\"", name),
+		Text: fmt.Sprintf("移除安全密钥 \"%s\"", name),
 		Type: Info,
 		Context: context(map[string]any{
 			"display_name":  name,
@@ -198,7 +198,7 @@ func NewInfoSelfServiceRemoveWebAuthn(name string, createdAt time.Time) *Message
 func NewInfoSelfServiceRemovePasskey(name string, createdAt time.Time) *Message {
 	return &Message{
 		ID:   InfoSelfServiceSettingsRemovePasskey,
-		Text: fmt.Sprintf("Remove passkey \"%s\"", name),
+		Text: fmt.Sprintf("移除 Passkey \"%s\"", name),
 		Type: Info,
 		Context: context(map[string]any{
 			"display_name":  name,

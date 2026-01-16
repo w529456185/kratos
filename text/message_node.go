@@ -6,7 +6,7 @@ package text
 func NewInfoNodeLabelVerifyOTP() *Message {
 	return &Message{
 		ID:   InfoNodeLabelVerifyOTP,
-		Text: "Verify code",
+		Text: "验证码",
 		Type: Info,
 	}
 }
@@ -14,7 +14,7 @@ func NewInfoNodeLabelVerifyOTP() *Message {
 func NewInfoNodeLabelVerificationCode() *Message {
 	return &Message{
 		ID:   InfoNodeLabelVerificationCode,
-		Text: "Verification code",
+		Text: "验证码",
 		Type: Info,
 	}
 }
@@ -22,7 +22,7 @@ func NewInfoNodeLabelVerificationCode() *Message {
 func NewInfoNodeLabelRecoveryCode() *Message {
 	return &Message{
 		ID:   InfoNodeLabelRecoveryCode,
-		Text: "Recovery code",
+		Text: "恢复码",
 		Type: Info,
 	}
 }
@@ -30,7 +30,7 @@ func NewInfoNodeLabelRecoveryCode() *Message {
 func NewInfoNodeLabelRegistrationCode() *Message {
 	return &Message{
 		ID:   InfoNodeLabelRegistrationCode,
-		Text: "Registration code",
+		Text: "注册码",
 		Type: Info,
 	}
 }
@@ -38,7 +38,7 @@ func NewInfoNodeLabelRegistrationCode() *Message {
 func NewInfoNodeLabelLoginCode() *Message {
 	return &Message{
 		ID:   InfoNodeLabelLoginCode,
-		Text: "Login code",
+		Text: "登录码",
 		Type: Info,
 	}
 }
@@ -46,7 +46,7 @@ func NewInfoNodeLabelLoginCode() *Message {
 func NewInfoNodeInputPassword() *Message {
 	return &Message{
 		ID:   InfoNodeLabelInputPassword,
-		Text: "Password",
+		Text: "密码",
 		Type: Info,
 	}
 }
@@ -66,7 +66,7 @@ func NewInfoNodeLabelGenerated(title string, name string) *Message {
 func NewInfoNodeLabelSave() *Message {
 	return &Message{
 		ID:   InfoNodeLabelSave,
-		Text: "Save",
+		Text: "保存",
 		Type: Info,
 	}
 }
@@ -74,7 +74,7 @@ func NewInfoNodeLabelSave() *Message {
 func NewInfoNodeLabelSubmit() *Message {
 	return &Message{
 		ID:   InfoNodeLabelSubmit,
-		Text: "Submit",
+		Text: "提交",
 		Type: Info,
 	}
 }
@@ -82,7 +82,7 @@ func NewInfoNodeLabelSubmit() *Message {
 func NewInfoNodeLabelContinue() *Message {
 	return &Message{
 		ID:   InfoNodeLabelContinue,
-		Text: "Continue",
+		Text: "继续",
 		Type: Info,
 	}
 }
@@ -98,7 +98,7 @@ func NewInfoNodeLabelID() *Message {
 func NewInfoNodeInputEmail() *Message {
 	return &Message{
 		ID:   InfoNodeLabelEmail,
-		Text: "Email",
+		Text: "邮箱",
 		Type: Info,
 	}
 }
@@ -106,7 +106,7 @@ func NewInfoNodeInputEmail() *Message {
 func NewInfoNodeInputPhoneNumber() *Message {
 	return &Message{
 		ID:   InfoNodeLabelPhoneNumber,
-		Text: "Phone number",
+		Text: "手机号",
 		Type: Info,
 	}
 }
@@ -114,7 +114,7 @@ func NewInfoNodeInputPhoneNumber() *Message {
 func NewInfoNodeResendOTP() *Message {
 	return &Message{
 		ID:   InfoNodeLabelResendOTP,
-		Text: "Resend code",
+		Text: "重新发送验证码",
 		Type: Info,
 	}
 }
@@ -122,7 +122,7 @@ func NewInfoNodeResendOTP() *Message {
 func NewInfoNodeLoginAndLinkCredential() *Message {
 	return &Message{
 		ID:   InfoNodeLabelLoginAndLinkCredential,
-		Text: "Login and link credential",
+		Text: "登录并关联凭证",
 		Type: Info,
 	}
 }

@@ -27,7 +27,7 @@ func NewValidationErrorGeneric(reason string) *Message {
 func NewValidationErrorRequired(missing string) *Message {
 	return &Message{
 		ID:   ErrorValidationRequired,
-		Text: fmt.Sprintf("Property %s is missing.", missing),
+		Text: fmt.Sprintf("缺少属性 %s。", missing),
 		Type: Error,
 		Context: context(map[string]any{
 			"property": missing,
@@ -38,7 +38,7 @@ func NewValidationErrorRequired(missing string) *Message {
 func NewErrorValidationMinLength(minLength, actualLength int) *Message {
 	return &Message{
 		ID:   ErrorValidationMinLength,
-		Text: fmt.Sprintf("length must be >= %d, but got %d", minLength, actualLength),
+		Text: fmt.Sprintf("长度必须 >= %d，但实际为 %d。", minLength, actualLength),
 		Type: Error,
 		Context: context(map[string]any{
 			"min_length":    minLength,
@@ -50,7 +50,7 @@ func NewErrorValidationMinLength(minLength, actualLength int) *Message {
 func NewErrorValidationMaxLength(maxLength, actualLength int) *Message {
 	return &Message{
 		ID:   ErrorValidationMaxLength,
-		Text: fmt.Sprintf("length must be <= %d, but got %d", maxLength, actualLength),
+		Text: fmt.Sprintf("长度必须 <= %d，但实际为 %d。", maxLength, actualLength),
 		Type: Error,
 		Context: context(map[string]any{
 			"max_length":    maxLength,
@@ -62,7 +62,7 @@ func NewErrorValidationMaxLength(maxLength, actualLength int) *Message {
 func NewErrorValidationInvalidFormat(pattern string) *Message {
 	return &Message{
 		ID:   ErrorValidationInvalidFormat,
-		Text: fmt.Sprintf("does not match pattern %q", pattern),
+		Text: fmt.Sprintf("不符合模式 %q。", pattern),
 		Type: Error,
 		Context: context(map[string]any{
 			"pattern": pattern,
@@ -73,7 +73,7 @@ func NewErrorValidationInvalidFormat(pattern string) *Message {
 func NewErrorValidationMinimum(minimum, actual float64) *Message {
 	return &Message{
 		ID:   ErrorValidationMinimum,
-		Text: fmt.Sprintf("must be >= %v but found %v", minimum, actual),
+		Text: fmt.Sprintf("必须 >= %v，但实际为 %v。", minimum, actual),
 		Type: Error,
 		Context: context(map[string]any{
 			"minimum": minimum,
@@ -85,7 +85,7 @@ func NewErrorValidationMinimum(minimum, actual float64) *Message {
 func NewErrorValidationExclusiveMinimum(minimum, actual float64) *Message {
 	return &Message{
 		ID:   ErrorValidationExclusiveMinimum,
-		Text: fmt.Sprintf("must be > %v but found %v", minimum, actual),
+		Text: fmt.Sprintf("必须 > %v，但实际为 %v。", minimum, actual),
 		Type: Error,
 		Context: context(map[string]any{
 			"minimum": minimum,
@@ -97,7 +97,7 @@ func NewErrorValidationExclusiveMinimum(minimum, actual float64) *Message {
 func NewErrorValidationMaximum(maximum, actual float64) *Message {
 	return &Message{
 		ID:   ErrorValidationMaximum,
-		Text: fmt.Sprintf("must be <= %v but found %v", maximum, actual),
+		Text: fmt.Sprintf("必须 <= %v，但实际为 %v。", maximum, actual),
 		Type: Error,
 		Context: context(map[string]any{
 			"maximum": maximum,
@@ -109,7 +109,7 @@ func NewErrorValidationMaximum(maximum, actual float64) *Message {
 func NewErrorValidationExclusiveMaximum(maximum, actual float64) *Message {
 	return &Message{
 		ID:   ErrorValidationExclusiveMaximum,
-		Text: fmt.Sprintf("must be < %v but found %v", maximum, actual),
+		Text: fmt.Sprintf("必须 < %v，但实际为 %v。", maximum, actual),
 		Type: Error,
 		Context: context(map[string]any{
 			"maximum": maximum,
@@ -121,7 +121,7 @@ func NewErrorValidationExclusiveMaximum(maximum, actual float64) *Message {
 func NewErrorValidationMultipleOf(base, actual float64) *Message {
 	return &Message{
 		ID:   ErrorValidationMultipleOf,
-		Text: fmt.Sprintf("%v not multipleOf %v", actual, base),
+		Text: fmt.Sprintf("%v 不是 %v 的倍数。", actual, base),
 		Type: Error,
 		Context: context(map[string]any{
 			"base":   base,
@@ -133,7 +133,7 @@ func NewErrorValidationMultipleOf(base, actual float64) *Message {
 func NewErrorValidationMaxItems(maxItems, actualItems int) *Message {
 	return &Message{
 		ID:   ErrorValidationMaxItems,
-		Text: fmt.Sprintf("maximum %d items allowed, but found %d items", maxItems, actualItems),
+		Text: fmt.Sprintf("最多允许 %d 项，但实际为 %d 项。", maxItems, actualItems),
 		Type: Error,
 		Context: context(map[string]any{
 			"max_items":    maxItems,
@@ -145,7 +145,7 @@ func NewErrorValidationMaxItems(maxItems, actualItems int) *Message {
 func NewErrorValidationMinItems(minItems, actualItems int) *Message {
 	return &Message{
 		ID:   ErrorValidationMinItems,
-		Text: fmt.Sprintf("minimum %d items allowed, but found %d items", minItems, actualItems),
+		Text: fmt.Sprintf("至少需要 %d 项，但实际为 %d 项。", minItems, actualItems),
 		Type: Error,
 		Context: context(map[string]any{
 			"min_items":    minItems,
@@ -157,7 +157,7 @@ func NewErrorValidationMinItems(minItems, actualItems int) *Message {
 func NewErrorValidationUniqueItems(indexA, indexB int) *Message {
 	return &Message{
 		ID:   ErrorValidationUniqueItems,
-		Text: fmt.Sprintf("items at index %d and %d are equal", indexA, indexB),
+		Text: fmt.Sprintf("索引 %d 和 %d 处的项相同。", indexA, indexB),
 		Type: Error,
 		Context: context(map[string]any{
 			"index_a": indexA,
@@ -169,7 +169,7 @@ func NewErrorValidationUniqueItems(indexA, indexB int) *Message {
 func NewErrorValidationWrongType(allowedTypes []string, actualType string) *Message {
 	return &Message{
 		ID:   ErrorValidationWrongType,
-		Text: fmt.Sprintf("expected %s, but got %s", strings.Join(allowedTypes, " or "), actualType),
+		Text: fmt.Sprintf("期望类型为 %s，但实际为 %s。", strings.Join(allowedTypes, " 或 "), actualType),
 		Type: Error,
 		Context: context(map[string]any{
 			"allowed_types": allowedTypes,
@@ -181,7 +181,7 @@ func NewErrorValidationWrongType(allowedTypes []string, actualType string) *Mess
 func NewErrorValidationConst(expected any) *Message {
 	return &Message{
 		ID:   ErrorValidationConst,
-		Text: fmt.Sprintf("must be equal to constant %v", expected),
+		Text: fmt.Sprintf("必须等于常量 %v。", expected),
 		Type: Error,
 		Context: context(map[string]any{
 			"expected": expected,
@@ -192,7 +192,7 @@ func NewErrorValidationConst(expected any) *Message {
 func NewErrorValidationConstGeneric() *Message {
 	return &Message{
 		ID:   ErrorValidationConstGeneric,
-		Text: "const failed",
+		Text: "常量验证失败。",
 		Type: Error,
 	}
 }
@@ -200,7 +200,7 @@ func NewErrorValidationConstGeneric() *Message {
 func NewErrorValidationPasswordPolicyViolationGeneric(reason string) *Message {
 	return &Message{
 		ID:   ErrorValidationPasswordPolicyViolationGeneric,
-		Text: fmt.Sprintf("The password can not be used because %s.", reason),
+		Text: fmt.Sprintf("密码无法使用，因为 %s。", reason),
 		Type: Error,
 		Context: context(map[string]any{
 			"reason": reason,
@@ -211,7 +211,7 @@ func NewErrorValidationPasswordPolicyViolationGeneric(reason string) *Message {
 func NewErrorValidationPasswordIdentifierTooSimilar() *Message {
 	return &Message{
 		ID:   ErrorValidationPasswordIdentifierTooSimilar,
-		Text: "The password can not be used because it is too similar to the identifier.",
+		Text: "密码无法使用，因为它与标识符过于相似。",
 		Type: Error,
 	}
 }
@@ -219,7 +219,7 @@ func NewErrorValidationPasswordIdentifierTooSimilar() *Message {
 func NewErrorValidationPasswordMinLength(minLength, actualLength int) *Message {
 	return &Message{
 		ID:   ErrorValidationPasswordMinLength,
-		Text: fmt.Sprintf("The password must be at least %d characters long, but got %d.", minLength, actualLength),
+		Text: fmt.Sprintf("密码长度必须至少为 %d 个字符，但实际为 %d 个字符。", minLength, actualLength),
 		Type: Error,
 		Context: context(map[string]any{
 			"min_length":    minLength,
@@ -231,7 +231,7 @@ func NewErrorValidationPasswordMinLength(minLength, actualLength int) *Message {
 func NewErrorValidationPasswordMaxLength(maxLength, actualLength int) *Message {
 	return &Message{
 		ID:   ErrorValidationPasswordMaxLength,
-		Text: fmt.Sprintf("The password must be at most %d characters long, but got %d.", maxLength, actualLength),
+		Text: fmt.Sprintf("密码长度最多为 %d 个字符，但实际为 %d 个字符。", maxLength, actualLength),
 		Type: Error,
 		Context: context(map[string]any{
 			"max_length":    maxLength,
@@ -243,7 +243,7 @@ func NewErrorValidationPasswordMaxLength(maxLength, actualLength int) *Message {
 func NewErrorValidationPasswordNewSameAsOld() *Message {
 	return &Message{
 		ID:   ErrorValidationPasswordNewSameAsOld,
-		Text: "The new password must be different from the old password.",
+		Text: "新密码必须与旧密码不同。",
 		Type: Error,
 	}
 }
@@ -251,7 +251,7 @@ func NewErrorValidationPasswordNewSameAsOld() *Message {
 func NewErrorValidationPasswordTooManyBreaches(breaches int64) *Message {
 	return &Message{
 		ID:   ErrorValidationPasswordTooManyBreaches,
-		Text: "The password has been found in data breaches and must no longer be used.",
+		Text: "密码已在数据泄露中被发现，不能再使用。",
 		Type: Error,
 		Context: context(map[string]any{
 			"breaches": breaches,
@@ -262,7 +262,7 @@ func NewErrorValidationPasswordTooManyBreaches(breaches int64) *Message {
 func NewErrorValidationInvalidCredentials() *Message {
 	return &Message{
 		ID:   ErrorValidationInvalidCredentials,
-		Text: "The provided credentials are invalid, check for spelling mistakes in your password or username, email address, or phone number.",
+		Text: "提供的登录信息无效，请检查密码、邮箱地址或手机号是否正确。",
 		Type: Error,
 	}
 }
@@ -270,7 +270,7 @@ func NewErrorValidationInvalidCredentials() *Message {
 func NewErrorValidationAccountNotFound() *Message {
 	return &Message{
 		ID:   ErrorValidationAccountNotFound,
-		Text: "This account does not exist or has no login method configured.",
+		Text: "此账户不存在或未配置登录方法。",
 		Type: Error,
 	}
 }
@@ -278,7 +278,7 @@ func NewErrorValidationAccountNotFound() *Message {
 func NewErrorValidationDuplicateCredentials() *Message {
 	return &Message{
 		ID:   ErrorValidationDuplicateCredentials,
-		Text: "An account with the same identifier (email, phone, username, ...) exists already.",
+		Text: "已存在相同身份（邮箱、电话、用户名等）的账户。",
 		Type: Error,
 	}
 }
@@ -286,7 +286,7 @@ func NewErrorValidationDuplicateCredentials() *Message {
 func NewErrorValidationDuplicateCredentialsWithHints(availableCredentialTypes []string, availableOIDCProviders []string, credentialIdentifierHint string) *Message {
 	identifier := credentialIdentifierHint
 	if identifier == "" {
-		identifier = "an email, phone, or username"
+		identifier = "邮箱、电话或用户名"
 	}
 	oidcProviders := make([]string, 0, len(availableOIDCProviders))
 	for _, provider := range availableOIDCProviders {
@@ -299,13 +299,13 @@ func NewErrorValidationDuplicateCredentialsWithHints(availableCredentialTypes []
 		for _, cred := range availableCredentialTypes {
 			switch cred {
 			case "password":
-				humanReadable = append(humanReadable, "your password")
+				humanReadable = append(humanReadable, "您的密码")
 			case "oidc", "saml":
-				humanReadable = append(humanReadable, "social sign in")
+				humanReadable = append(humanReadable, "社交登录")
 			case "webauthn":
-				humanReadable = append(humanReadable, "your passkey or a security key")
+				humanReadable = append(humanReadable, "您的 Passkey 或安全密钥")
 			case "passkey":
-				humanReadable = append(humanReadable, "your passkey")
+				humanReadable = append(humanReadable, "您的 Passkey")
 			}
 		}
 		if len(humanReadable) == 0 {
@@ -318,14 +318,14 @@ func NewErrorValidationDuplicateCredentialsWithHints(availableCredentialTypes []
 
 		// Final format: "You can sign in using foo, bar, or baz."
 		if len(humanReadable) > 1 {
-			humanReadable[len(humanReadable)-1] = "or " + humanReadable[len(humanReadable)-1]
+			humanReadable[len(humanReadable)-1] = "或 " + humanReadable[len(humanReadable)-1]
 		}
 		if len(humanReadable) > 0 {
-			reason += fmt.Sprintf(" You can sign in using %s.", strings.Join(humanReadable, ", "))
+			reason += fmt.Sprintf(" 您可以使用 %s 登录。", strings.Join(humanReadable, "、"))
 		}
 	}
 	if len(oidcProviders) > 0 {
-		reason += fmt.Sprintf(" You can sign in using one of the following social sign in providers: %s.", strings.Join(oidcProviders, ", "))
+		reason += fmt.Sprintf(" 您可以使用以下社交登录提供商之一进行登录：%s。", strings.Join(oidcProviders, "、"))
 	}
 
 	return &Message{
@@ -343,8 +343,8 @@ func NewErrorValidationDuplicateCredentialsWithHints(availableCredentialTypes []
 func NewErrorValidationDuplicateCredentialsOnOIDCLink() *Message {
 	return &Message{
 		ID: ErrorValidationDuplicateCredentialsOnOIDCLink,
-		Text: "An account with the same identifier (email, phone, username, ...) exists already. " +
-			"Please sign in to your existing account to link your social profile.",
+		Text: "已存在相同身份（邮箱、电话、用户名等）的账户。" +
+			"请登录现有账户以关联您的社交资料。",
 		Type: Error,
 	}
 }
@@ -352,7 +352,7 @@ func NewErrorValidationDuplicateCredentialsOnOIDCLink() *Message {
 func NewErrorValidationTOTPVerifierWrong() *Message {
 	return &Message{
 		ID:   ErrorValidationTOTPVerifierWrong,
-		Text: "The provided authentication code is invalid, please try again.",
+		Text: "提供的验证码无效，请重试。",
 		Type: Error,
 	}
 }
@@ -360,7 +360,7 @@ func NewErrorValidationTOTPVerifierWrong() *Message {
 func NewErrorValidationLookupAlreadyUsed() *Message {
 	return &Message{
 		ID:   ErrorValidationLookupAlreadyUsed,
-		Text: "This backup recovery code has already been used.",
+		Text: "此备用恢复码已被使用。",
 		Type: Error,
 	}
 }
@@ -368,7 +368,7 @@ func NewErrorValidationLookupAlreadyUsed() *Message {
 func NewErrorValidationLookupInvalid() *Message {
 	return &Message{
 		ID:   ErrorValidationLookupInvalid,
-		Text: "The backup recovery code is not valid.",
+		Text: "备用恢复码无效。",
 		Type: Error,
 	}
 }
@@ -376,7 +376,7 @@ func NewErrorValidationLookupInvalid() *Message {
 func NewErrorValidationIdentifierMissing() *Message {
 	return &Message{
 		ID:   ErrorValidationIdentifierMissing,
-		Text: "Could not find any login identifiers. Did you forget to set them? This could also be caused by a server misconfiguration.",
+		Text: "未找到任何登录标识符。您是否忘记设置？也可能是服务器配置错误。",
 		Type: Error,
 	}
 }
@@ -384,7 +384,7 @@ func NewErrorValidationIdentifierMissing() *Message {
 func NewErrorValidationAddressNotVerified() *Message {
 	return &Message{
 		ID:   ErrorValidationAddressNotVerified,
-		Text: "Account not active yet. Did you forget to verify your email address?",
+		Text: "账户尚未激活。您是否忘记验证邮箱地址？",
 		Type: Error,
 	}
 }
@@ -392,7 +392,7 @@ func NewErrorValidationAddressNotVerified() *Message {
 func NewErrorValidationNoTOTPDevice() *Message {
 	return &Message{
 		ID:   ErrorValidationNoTOTPDevice,
-		Text: "You have no TOTP device set up.",
+		Text: "您未设置 TOTP 设备。",
 		Type: Error,
 	}
 }
@@ -400,7 +400,7 @@ func NewErrorValidationNoTOTPDevice() *Message {
 func NewErrorValidationNoLookup() *Message {
 	return &Message{
 		ID:   ErrorValidationNoLookup,
-		Text: "You have no backup recovery codes set up.",
+		Text: "您未设置备用恢复码。",
 		Type: Error,
 	}
 }
@@ -408,7 +408,7 @@ func NewErrorValidationNoLookup() *Message {
 func NewErrorValidationNoWebAuthnDevice() *Message {
 	return &Message{
 		ID:   ErrorValidationNoWebAuthnDevice,
-		Text: "You have no WebAuthn device set up.",
+		Text: "您未设置 WebAuthn 设备。",
 		Type: Error,
 	}
 }
@@ -416,7 +416,7 @@ func NewErrorValidationNoWebAuthnDevice() *Message {
 func NewErrorValidationSuchNoWebAuthnUser() *Message {
 	return &Message{
 		ID:   ErrorValidationSuchNoWebAuthnUser,
-		Text: "This account does not exist or has no security key set up.",
+		Text: "此账户不存在或未设置安全密钥。",
 		Type: Error,
 	}
 }
@@ -424,7 +424,7 @@ func NewErrorValidationSuchNoWebAuthnUser() *Message {
 func NewErrorValidationNoCodeUser() *Message {
 	return &Message{
 		ID:   ErrorValidationNoCodeUser,
-		Text: "This account does not exist or has not setup sign in with code.",
+		Text: "此账户不存在或未设置验证码登录。",
 		Type: Error,
 	}
 }
@@ -432,7 +432,7 @@ func NewErrorValidationNoCodeUser() *Message {
 func NewErrorValidationTraitsMismatch() *Message {
 	return &Message{
 		ID:   ErrorValidationTraitsMismatch,
-		Text: "The provided traits do not match the traits previously associated with this flow.",
+		Text: "提供的特征与此流程先前关联的特征不匹配。",
 		Type: Error,
 	}
 }
@@ -440,7 +440,7 @@ func NewErrorValidationTraitsMismatch() *Message {
 func NewErrorCaptchaFailed() *Message {
 	return &Message{
 		ID:   ErrorValidationCaptchaError,
-		Text: "Captcha verification failed, please try again.",
+		Text: "验证码验证失败，请重试。",
 		Type: Error,
 	}
 }

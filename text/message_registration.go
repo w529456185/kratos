@@ -11,7 +11,7 @@ import (
 func NewInfoRegistration() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistration,
-		Text: "Sign up",
+		Text: "注册",
 		Type: Info,
 	}
 }
@@ -19,7 +19,7 @@ func NewInfoRegistration() *Message {
 func NewInfoRegistrationWith(provider string, providerID string) *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationWith,
-		Text: fmt.Sprintf("Sign up with %s", provider),
+		Text: fmt.Sprintf("使用 %s 注册", provider),
 		Type: Info,
 		Context: context(map[string]any{
 			"provider":    provider,
@@ -31,7 +31,7 @@ func NewInfoRegistrationWith(provider string, providerID string) *Message {
 func NewInfoRegistrationContinue() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationContinue,
-		Text: "Continue",
+		Text: "继续",
 		Type: Info,
 	}
 }
@@ -39,7 +39,7 @@ func NewInfoRegistrationContinue() *Message {
 func NewInfoRegistrationBack() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationBack,
-		Text: "Back",
+		Text: "返回",
 		Type: Info,
 	}
 }
@@ -47,7 +47,7 @@ func NewInfoRegistrationBack() *Message {
 func NewInfoSelfServiceChooseCredentials() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationChooseCredentials,
-		Text: "Please choose a credential to authenticate yourself with.",
+		Text: "请选择一种凭证进行身份验证。",
 		Type: Info,
 	}
 }
@@ -55,7 +55,7 @@ func NewInfoSelfServiceChooseCredentials() *Message {
 func NewErrorValidationRegistrationFlowExpired(expiredAt time.Time) *Message {
 	return &Message{
 		ID:   ErrorValidationRegistrationFlowExpired,
-		Text: fmt.Sprintf("The registration flow expired %.2f minutes ago, please try again.", Since(expiredAt).Minutes()),
+		Text: fmt.Sprintf("注册流程已于 %.2f 分钟前过期，请重试。", Since(expiredAt).Minutes()),
 		Type: Error,
 		Context: context(map[string]any{
 			"expired_at":      expiredAt,
@@ -67,7 +67,7 @@ func NewErrorValidationRegistrationFlowExpired(expiredAt time.Time) *Message {
 func NewInfoSelfServiceRegistrationRegisterWebAuthn() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationRegisterWebAuthn,
-		Text: "Sign up with security key",
+		Text: "使用安全密钥注册",
 		Type: Info,
 	}
 }
@@ -75,7 +75,7 @@ func NewInfoSelfServiceRegistrationRegisterWebAuthn() *Message {
 func NewInfoSelfServiceRegistrationRegisterPasskey() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationRegisterPasskey,
-		Text: "Sign up with passkey",
+		Text: "使用 Passkey 注册",
 		Type: Info,
 	}
 }
@@ -84,14 +84,14 @@ func NewRegistrationEmailWithCodeSent() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationEmailWithCodeSent,
 		Type: Info,
-		Text: "A code has been sent to the address(es) you provided. If you have not received a message, check the spelling of the address and retry the registration.",
+		Text: "验证码已发送至您提供的地址。如果未收到，请检查地址拼写并重试注册。",
 	}
 }
 
 func NewErrorValidationRegistrationCodeInvalidOrAlreadyUsed() *Message {
 	return &Message{
 		ID:   ErrorValidationRegistrationCodeInvalidOrAlreadyUsed,
-		Text: "The registration code is invalid or has already been used. Please try again.",
+		Text: "注册码无效或已被使用，请重试。",
 		Type: Error,
 	}
 }
@@ -100,14 +100,14 @@ func NewErrorValidationRegistrationRetrySuccessful() *Message {
 	return &Message{
 		ID:   ErrorValidateionRegistrationRetrySuccess,
 		Type: Error,
-		Text: "The request was already completed successfully and can not be retried.",
+		Text: "请求已完成，无法重试。",
 	}
 }
 
 func NewInfoSelfServiceRegistrationRegisterCode() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRegistrationRegisterCode,
-		Text: "Send sign up code",
+		Text: "发送注册验证码",
 		Type: Info,
 	}
 }

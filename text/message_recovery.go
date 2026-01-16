@@ -11,7 +11,7 @@ import (
 func NewErrorValidationRecoveryFlowExpired(expiredAt time.Time) *Message {
 	return &Message{
 		ID:   ErrorValidationRecoveryFlowExpired,
-		Text: fmt.Sprintf("The recovery flow expired %.2f minutes ago, please try again.", Since(expiredAt).Minutes()),
+		Text: fmt.Sprintf("恢复流程已于 %.2f 分钟前过期，请重试。", Since(expiredAt).Minutes()),
 		Type: Error,
 		Context: context(map[string]any{
 			"expired_at":      expiredAt,
@@ -25,7 +25,7 @@ func NewRecoverySuccessful(privilegedSessionExpiresAt time.Time) *Message {
 	return &Message{
 		ID:   InfoSelfServiceRecoverySuccessful,
 		Type: Success,
-		Text: fmt.Sprintf("You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next %.2f minutes.", hasLeft.Minutes()),
+		Text: fmt.Sprintf("您已成功恢复账户。请在 %.2f 分钟内更改密码或设置替代登录方式（如社交登录）。", hasLeft.Minutes()),
 		Context: context(map[string]any{
 			"privilegedSessionExpiresAt":         privilegedSessionExpiresAt,
 			"privileged_session_expires_at":      privilegedSessionExpiresAt,
@@ -38,7 +38,7 @@ func NewRecoveryEmailSent() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRecoveryEmailSent,
 		Type: Info,
-		Text: "An email containing a recovery link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
+		Text: "恢复链接已发送至您提供的邮箱。如果未收到，请检查地址拼写并确保使用注册邮箱。",
 	}
 }
 
@@ -46,14 +46,14 @@ func NewRecoveryEmailWithCodeSent() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRecoveryEmailWithCodeSent,
 		Type: Info,
-		Text: "An email containing a recovery code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
+		Text: "恢复码已发送至您提供的邮箱。如果未收到，请检查地址拼写并确保使用注册邮箱。",
 	}
 }
 
 func NewRecoveryAskAnyRecoveryAddress() *Message {
 	return &Message{
 		ID:   InfoNodeLabelRecoveryAddress,
-		Text: "Recovery address",
+		Text: "恢复地址",
 		Type: Info,
 	}
 }
@@ -62,7 +62,7 @@ func NewRecoveryCodeRecoverySelectAddressSent(maskedAddress string) *Message {
 	return &Message{
 		ID:   InfoSelfServiceRecoveryMessageMaskedWithCodeSent,
 		Type: Info,
-		Text: fmt.Sprintf("A recovery code has been sent to %s. If you have not received it, check the spelling of the address and make sure to use the address you registered with.", maskedAddress),
+		Text: fmt.Sprintf("恢复码已发送至 %s。如果未收到，请检查地址拼写并确保使用注册邮箱。", maskedAddress),
 		Context: context(map[string]any{
 			"masked_address": maskedAddress,
 		}),
@@ -73,7 +73,7 @@ func NewRecoveryAskForFullAddress() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRecoveryAskForFullAddress,
 		Type: Info,
-		Text: "Recover access to your account by providing your recovery address in full.",
+		Text: "通过提供完整的恢复地址来恢复对账户的访问。",
 	}
 }
 
@@ -81,7 +81,7 @@ func NewRecoveryAskToChooseAddress() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRecoveryAskToChooseAddress,
 		Type: Info,
-		Text: "How do you want to recover your account?",
+		Text: "您想如何恢复您的账户？",
 	}
 }
 
@@ -89,14 +89,14 @@ func NewRecoveryBack() *Message {
 	return &Message{
 		ID:   InfoSelfServiceRecoveryBack,
 		Type: Info,
-		Text: "Back",
+		Text: "返回",
 	}
 }
 
 func NewErrorValidationRecoveryTokenInvalidOrAlreadyUsed() *Message {
 	return &Message{
 		ID:   ErrorValidationRecoveryTokenInvalidOrAlreadyUsed,
-		Text: "The recovery token is invalid or has already been used. Please retry the flow.",
+		Text: "恢复令牌无效或已被使用，请重试流程。",
 		Type: Error,
 	}
 }
@@ -104,7 +104,7 @@ func NewErrorValidationRecoveryTokenInvalidOrAlreadyUsed() *Message {
 func NewErrorValidationRecoveryCodeInvalidOrAlreadyUsed() *Message {
 	return &Message{
 		ID:   ErrorValidationRecoveryCodeInvalidOrAlreadyUsed,
-		Text: "The recovery code is invalid or has already been used. Please try again.",
+		Text: "恢复码无效或已被使用，请重试。",
 		Type: Error,
 	}
 }
@@ -112,7 +112,7 @@ func NewErrorValidationRecoveryCodeInvalidOrAlreadyUsed() *Message {
 func NewErrorValidationRecoveryRetrySuccess() *Message {
 	return &Message{
 		ID:   ErrorValidationRecoveryRetrySuccess,
-		Text: "The request was already completed successfully and can not be retried.",
+		Text: "请求已完成，无法重试。",
 		Type: Error,
 	}
 }
@@ -120,7 +120,7 @@ func NewErrorValidationRecoveryRetrySuccess() *Message {
 func NewErrorValidationRecoveryStateFailure() *Message {
 	return &Message{
 		ID:   ErrorValidationRecoveryStateFailure,
-		Text: "The recovery flow reached a failure state and must be retried.",
+		Text: "恢复流程已达到失败状态，必须重试。",
 		Type: Error,
 	}
 }
